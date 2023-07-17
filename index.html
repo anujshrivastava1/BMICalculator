@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <h3>BMI Calculator</h3>
+        <div class="input-group">
+          <h2>Height: {{ height }} (cm)</h2>
+          <input v-model="height" placeholder="Enter your height" />
+        </div>
+        <div class="input-group">
+          <h2>Weight: {{ weight }} (kg)</h2>
+          <input
+            v-model="weight"
+            placeholder="Enter your weight"
+            @keyup.enter="calculateBMI"
+          />
+        </div>
+        <button @click="calculateBMI">Calculate BMI</button>
+        <h1 v-if="result" class="result">{{ result }}</h1>
+        <table v-if="history.length > 0">
+          <thead>
+            <tr>
+              <th>Height (cm)</th>
+              <th>Weight (kg)</th>
+              <th>Result</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(entry, index) in history" :key="index">
+              <td>{{ entry.height }}</td>
+              <td>{{ entry.weight }}</td>
+              <td :style="{ color: entry.resultColor }">{{ entry.result }}</td>
+              <td>
+                <button @click="removeEntry(index)">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
